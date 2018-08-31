@@ -14,13 +14,22 @@
 'use strict';
 
 const express = require('express');
-
 const app = express();
-
+const request = require('request');
+var url = "https://trends.google.com/trends/explore?date=now%201-H&geo=US&q=which";
 // [START hello_world]
 // Say hello!
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!');
+  
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.info(new Date());
+      console.info(body);
+      res.status(200).send(body);  
+    }
+  });
+  
+  // res.status(200).send('Hello, world!');
 });
 // [END hello_world]
 
